@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm Nang Sử Dụng - TARA ATELIER</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .magazine-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 0;
+            width: 100%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #1A1A24;
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: #6E6E73;
+            font-style: italic;
+        }
+
+        #bao-quan {
+            display: flex;
+            gap: 40px;
+            background-color: #FAF8F5;
+            border: 1px solid #E5E5E9;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .featured-img-box {
+            flex: 1.2;
+            aspect-ratio: 16 / 9;
+            background-color: #F5F5F7;
+            overflow: hidden;
+        }
+
+        .featured-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-img-box:hover img {
+            transform: scale(1.02);
+        }
+
+        .featured-content {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .article-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #2e2e85;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .featured-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-weight: 400;
+            color: #1A1A24;
+        }
+
+        .article-excerpt {
+            font-size: 13px;
+            color: #6E6E73;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .read-more-btn {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #1A1A24;
+            padding-bottom: 4px;
+            text-decoration: none;
+            color: #1A1A24;
+            display: inline-block;
+        }
+
+        .read-more-btn:hover {
+            color: #2e2e85;
+            border-color: #2e2e85;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px 30px;
+        }
+
+        .blog-item {
+            display: flex;
+            flex-direction: column;
+            background: #FFFFFF;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .blog-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .blog-img-box {
+            width: 100%;
+            aspect-ratio: 4 / 3; 
+            background-color: #F5F5F7;
+            border: 1px solid #E5E5E9;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .blog-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-img-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .blog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: #1A1A24;
+        }
+
+        .blog-excerpt {
+            font-size: 13px;
+            color: #6E6E73;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .featured-article {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .featured-content {
+                padding: 25px;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .page-header h1 {
+                font-size: 26px;
+            }
+            .featured-title {
+                font-size: 20px;
+            }
+        }
+
+        @media only screen and (min-width: 768px) and (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        #container {
+            overflow-x: hidden;
+        }
+        
+        .blog-img-box img[src=""], 
+        .featured-img-box img[src=""] {
+            background-color: #E5E5E9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="top">
+        <div id="top-content">
+            <div id="top-left">TARA ATELIER // Khám Phá Ngay Những Tuyệt Tác Độc Bản Giới Hạn</div>
+            <div id="top-right">HOTLINE: 0332.413.231</div>
+        </div>
+    </div>
+
+    <div id="header">
+        <div id="banner">
+            <div class="logo">
+                <a href="index.html"><img src="images/logoTara.png" alt="Logo TARA"></a>
+            </div>
+
+            <div id="menu">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li>
+                        <a href="sanpham.html">Danh mục sản phẩm</a>
+                        <ul>
+                            
+                            <li><a href="sanpham.html#nhan">Nhẫn</a></li>
+                            <li><a href="sanpham.html#daychuyen">Dây Chuyền</a></li>
+                            <li><a href="sanpham.html#khuyentai">Khuyên Tai</a></li>
+                            <li><a href="sanpham.html#vongtay">Vòng Tay</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="camnang.html">Cẩm nang sử dụng ▾</a>
+                        <ul>
+                            <li><a href="baoquantrangsu.html">Bảo quản trang sức bạc</a></li>
+                            <li><a href="cachdosize.html">Cách đo size nhẫn</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="header-right-icons">
+                <a href="taikhoan.html" class="nav-icon-link" title="Tài khoản">
+                    <img src="images/account.png" alt="Tài khoản" class="nav-img-icon">
+                </a>
+                <div id="cart-content" title="Giỏ hàng">
+                    <a href="giohang.html"><img src="images/cart.png" alt="Giỏ hàng" class="nav-img-icon cart-icon-img"></a>
+                    <span class="cart-badge">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="wrapper">
+        <div id="container" style="padding-bottom: 40px;">
+            <div class="magazine-container">
+                
+                <div class="page-header">
+                    <h1>CẨM NANG TARA</h1>
+                    <p>Bí quyết gìn giữ giá trị và tôn vinh khí chất qua từng viên đá quý</p>
+                </div>
+
+                <div id="bao-quan">
+                    <div class="featured-img-box">
+                        <img src="images/bao-quan.jpg" alt="Bảo quản trang sức">
+                    </div>
+                    <div class="featured-content">
+                        <span class="article-tag">BÍ QUYẾT BẢO QUẢN</span>
+                        <h2 class="featured-title">Cách làm sạch trang sức đính đá tại nhà giữ nguyên độ lấp lánh như mới</h2>
+                        <p class="article-excerpt">Trang sức đính đá quý qua thời gian dài sử dụng thường bám bụi mờ. Khám phá ngay quy trình 4 bước làm sạch chuẩn chuyên gia cực kỳ an toàn cho bề mặt đá quý của bạn...</p>
+                        <a href="#" class="read-more-btn">ĐỌC BÀI VIẾT</a>
+                    </div>
+                </div>
+
+                <div class="blog-grid">
+                    <div class="blog-item">
+                        <div class="blog-img-box">
+                            <img src="images/RingSize.webp" alt="Cách đo size nhẫn" id="sizeNhan">
+                        </div>
+                        <span class="article-tag">HƯỚNG DẪN ĐO SIZE</span>
+                        <h3 class="blog-title">Mẹo đo size nhẫn bí mật để tạo bất ngờ cho nửa kia khi cầu hôn</h3>
+                        <p class="blog-excerpt">Làm sao để chọn được chiếc nhẫn vừa vặn hoàn hảo mà không làm lộ ý định bất ngờ? Hãy áp dụng ngay 3 mẹo đo thông minh sau...</p>
+                        <a href="#" class="read-more-btn">XEM CHI TIẾT</a>
+                    </div>
+
+                    <div class="blog-item">
+                        <div class="blog-img-box">
+                            <img src="images/layer.webp" alt="Phối dây chuyền layer">
+                        </div>
+                        <span class="article-tag">PHONG CÁCH THỜI TRANG</span>
+                        <h3 class="blog-title">Xu hướng phối dây chuyền layer cực cá tính cho mùa lễ hội cuối năm</h3>
+                        <p class="blog-excerpt">Phối nhiều lớp vòng cổ (layering) đang là xu hướng thịnh hành. TARA bật mí quy tắc độ dài giúp tổng thể trở nên thanh lịch...</p>
+                        <a href="#" class="read-more-btn">XEM CHI TIẾT</a>
+                    </div>
+
+                    <div class="blog-item">
+                        <div class="blog-img-box">
+                            <img src="images/diamond.webp" alt="Phân biệt Moissanite và Kim cương">
+                        </div>
+                        <span class="article-tag">KIẾN THỨC ĐÁ QUÝ</span>
+                        <h3 class="blog-title">Phân biệt đá Moissanite và Kim cương tự nhiên bằng mắt thường</h3>
+                        <p class="blog-excerpt">Moissanite sở hữu vẻ đẹp rực rỡ không thua kém kim cương nhưng giá thành tối ưu hơn. Dưới đây là cách nhận biết độ tán sắc...</p>
+                        <a href="#" class="read-more-btn">XEM CHI TIẾT</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="footer-item">
+            <img src="images/logoTara.png" alt="Logo" style="max-height: 250px; margin: 0px;">
+        </div>
+        <div class="footer-item">
+            <h3>VỀ TARA ATELIER</h3>
+            <ul>
+                <li><a href="#">Câu chuyện thương hiệu</a></li>
+                <li><a href="#">Tuyển dụng nghệ nhân</a></li>
+                <li><a href="#">Hệ thống cửa hàng</a></li>
+                <li><a href="#">Chương trình đặc quyền</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>DỊCH VỤ KHÁCH HÀNG</h3>
+            <ul>
+                <li><a href="#">Chính sách hoàn tiền</a></li>
+                <li><a href="#">Chính sách giao hàng tận nơi</a></li>
+                <li><a href="#">Bảo hành trang sức bạc</a></li>
+                <li><a href="#">Xử lý dữ liệu cá nhân</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
+            <p style="margin-bottom: 15px; font-size: 13px; color: #6E6E73;">Theo dõi các bộ sưu tập mới nhất qua mạng xã hội.</p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">PHƯƠNG THỨC THANH TOÁN</h3>
+            <div class="payment-mock">
+                <span class="pay-card">VISA</span>
+                <span class="pay-card">MASTER</span>
+                <span class="pay-card">JCB</span>
+                <span class="pay-card">VNPAY</span>
+            </div>
+        </div>
+        <div class="footer-item" style="display: flex; justify-content: center;">
+            <div>
+                <h3 style="text-transform: uppercase; font-weight: 600;">Thông tin đồ án</h3>
+                <p class="footer-text-small">&copy; 2026 Đồ án Thương hiệu TARA Atelier.</p>
+                <p class="footer-text-small">Thiết kế bởi: <strong>Bùi Thị Thùy Trang</strong></p>
+                <p class="footer-text-small">Mã số sinh viên: 12425083</p>
+                <p class="footer-text-small">Học phần: Thiết kế Web cơ bản</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="quick-contact" title="Liên hệ ngay">
+        <a href="#"><img src="images/lienHe.png" id="quick-contact-img" alt="Liên hệ"></a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

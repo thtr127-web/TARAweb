@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Khoản | TARA Atelier</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero {
+            width: 100%;
+            height: 180px;
+            background-color: #1A1A24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .page-hero h1 {
+            color: #FFFFFF;
+            font-size: 28px;
+            letter-spacing: 6px;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .breadcrumb { color: #6E6E73; font-size: 12px; letter-spacing: 1px; }
+        .breadcrumb a { color: #9E9EA6; text-decoration: none; }
+        .breadcrumb a:hover { color: #fff; }
+        .breadcrumb span { margin: 0 8px; color: #6E6E73; }
+
+        .account-wrapper {
+            width: 85%;
+            max-width: 1100px;
+            margin: 70px auto 90px auto;
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+        }
+
+        .auth-panel {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #E5E5E9;
+            margin-bottom: 36px;
+        }
+        .auth-tab {
+            padding: 12px 0;
+            margin-right: 36px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #9E9EA6;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .auth-tab.active {
+            color: #1A1A24;
+            border-bottom-color: #1A1A24;
+        }
+
+        /* Form */
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+
+        .form-group { margin-bottom: 22px; }
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1A1A24;
+            margin-bottom: 8px;
+        }
+        .form-input {
+            width: 100%;
+            border: 1px solid #E5E5E9;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #1A1A24;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .form-input:focus { border-color: #1A1A24; }
+        .form-input::placeholder { color: #C5C5CA; }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+        .form-row .form-group { flex: 1; }
+
+        .form-helper {
+            font-size: 11.5px;
+            color: #9E9EA6;
+            margin-top: 6px;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        .form-check input { accent-color: #1A1A24; width: 14px; height: 14px; cursor: pointer; }
+        .form-check label { font-size: 13px; color: #6E6E73; cursor: pointer; }
+        .form-check a { color: #1A1A24; font-weight: 600; }
+
+        .btn-auth {
+            width: 100%;
+            padding: 14px;
+            background: #1A1A24;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .btn-auth:hover { background: #6E6E73; }
+
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .form-divider::before, .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E5E5E9;
+        }
+        .form-divider span { font-size: 11px; color: #9E9EA6; letter-spacing: 1px; white-space: nowrap; }
+
+        .btn-social {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #E5E5E9;
+            color: #1A1A24;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+            margin-bottom: 12px;
+        }
+        .btn-social:hover { background: #F5F5F7; }
+        .btn-social-icon { font-size: 16px; }
+
+        .forgot-link {
+            text-align: right;
+            margin-top: -12px;
+            margin-bottom: 20px;
+        }
+        .forgot-link a {
+            font-size: 12px;
+            color: #6E6E73;
+            text-decoration: none;
+        }
+        .forgot-link a:hover { color: #1A1A24; }
+
+        .benefit-panel {
+            width: 340px;
+            flex-shrink: 0;
+        }
+
+        .benefit-header {
+            background: #1A1A24;
+            padding: 28px 28px 24px 28px;
+            margin-bottom: 0;
+        }
+        .benefit-header h3 {
+            color: #fff;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+        }
+        .benefit-header p {
+            color: #9E9EA6;
+            font-size: 12.5px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .benefit-list {
+            border: 1px solid #E5E5E9;
+            border-top: none;
+        }
+        .benefit-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px 24px;
+            border-bottom: 1px solid #F5F5F7;
+        }
+        .benefit-item:last-child { border-bottom: none; }
+        .benefit-icon {
+            width: 36px;
+            height: 36px;
+            background: #F5F5F7;
+            border: 1px solid #E5E5E9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .benefit-text h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1A1A24;
+            margin: 0 0 4px 0;
+        }
+        .benefit-text p {
+            font-size: 12px;
+            color: #6E6E73;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Thanh thành viên điểm */
+        .member-tier {
+            margin-top: 24px;
+            border: 1px solid #E5E5E9;
+            padding: 24px;
+        }
+        .tier-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #1A1A24;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .tier-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .tier-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .tier-name { font-size: 13px; font-weight: 600; color: #1A1A24; width: 70px; }
+        .tier-bar-wrap { flex: 1; height: 4px; background: #F5F5F7; }
+        .tier-bar { height: 100%; background: #1A1A24; }
+        .tier-threshold { font-size: 11px; color: #9E9EA6; white-space: nowrap; }
+
+        @media only screen and (max-width: 767px) {
+            .account-wrapper { flex-direction: column; width: 94%; gap: 30px; margin: 40px auto 60px auto; }
+            .benefit-panel { width: 100%; }
+            .form-row { flex-direction: column; gap: 0; }
+        }
+        @media only screen and (min-width: 768px) and (max-width: 1179px) {
+            .account-wrapper { width: 92%; gap: 30px; }
+            .benefit-panel { width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="top">
+    <div id="top-content">
+        <div id="top-left">TARA ATELIER // Khám Phá Ngay Những Tuyệt Tác Độc Bản Giới Hạn</div>
+        <div id="top-right">HOTLINE: 0332.413.231</div>
+    </div>
+</div>
+
+<div id="header">
+    <div id="banner">
+        <div class="logo">
+            <a href="index.html"><img src="images/logoTara.png" alt="TARA Atelier"></a>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li>
+                    <a href="sanpham.html">Danh mục sản phẩm</a>
+                    <ul>
+                            <li><a href="sanpham.html#nhan">Nhẫn</a></li>
+                            <li><a href="sanpham.html#daychuyen">Dây Chuyền</a></li>
+                            <li><a href="sanpham.html#khuyentai">Khuyên Tai</a></li>
+                            <li><a href="sanpham.html#vongtay">Vòng Tay</a></li>
+                    </ul>
+                </li>
+                <li><a href="camnang.html">Cẩm nang sử dụng ▾</a>
+                    <ul>
+                        <li><a href="camnang.html#size">Cách đo size nhẫn</a></li>
+                        <li><a href="camnang.html#care">Bảo quản trang sức bạc</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="header-right-icons">
+            <a href="#" class="nav-icon-link" title="Tìm kiếm">
+                <img src="images/find.png" alt="Tìm kiếm" class="nav-img-icon">
+            </a>
+            <a href="taikhoan.html" class="nav-icon-link" title="Tài khoản">
+                <img src="images/account.png" alt="Tài khoản" class="nav-img-icon">
+            </a>
+            <div id="cart-content" title="Giỏ hàng">
+                <a href="giohang.html"><img src="images/cart.png" alt="Giỏ hàng" class="nav-img-icon cart-icon-img"></a>
+                <span class="cart-badge">0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-hero">
+    <h1>Tài Khoản Của Tôi</h1>
+    <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a>
+        <span>/</span>
+        Tài khoản
+    </div>
+</div>
+
+<div class="account-wrapper">
+    <div class="auth-panel">
+        <div class="auth-tabs">
+            <div class="auth-tab active" onclick="switchTab('login', this)">Đăng nhập</div>
+            <div class="auth-tab" onclick="switchTab('register', this)">Tạo tài khoản</div>
+        </div>
+
+        <div class="auth-form active" id="form-login">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" placeholder="taikhoan@email.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" class="form-input" placeholder=".............">
+            </div>
+            <div class="forgot-link"><a href="#">Quên mật khẩu?</a></div>
+            <div class="form-check">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Ghi nhớ đăng nhập</label>
+            </div>
+            <button class="btn-auth" onclick="handleLogin()">ĐĂNG NHẬP</button>
+            <div class="form-divider"><span>HOẶC ĐĂNG NHẬP BẰNG</span></div>
+            <button class="btn-social">
+                <span class="btn-social-icon">G</span>
+                Tiếp tục với Google
+            </button>
+            <button class="btn-social">
+                <span class="btn-social-icon">f</span>
+                Tiếp tục với Facebook
+            </button>
+        </div>
+
+        <div class="auth-form" id="form-register">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Họ</label>
+                    <input type="text" class="form-input" placeholder="Nhập họ">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tên</label>
+                    <input type="text" class="form-input" placeholder="Nhập tên">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" placeholder="taikhoan@email.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Số điện thoại</label>
+                <input type="tel" class="form-input" placeholder="10 số">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" class="form-input" placeholder="Tối thiểu 8 ký tự">
+                <div class="form-helper">Dùng chữ hoa, chữ số và ký tự đặc biệt để mật khẩu mạnh hơn.</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Xác nhận mật khẩu</label>
+                <input type="password" class="form-input" placeholder="Nhập lại mật khẩu">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="agree-terms">
+                <label for="agree-terms">Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a> của TARA Atelier.</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="subscribe">
+                <label for="subscribe">Nhận thông báo về bộ sưu tập và ưu đãi mới nhất</label>
+            </div>
+            <button class="btn-auth" onclick="handleRegister()">TẠO TÀI KHOẢN</button>
+        </div>
+    </div>
+
+    <div class="benefit-panel">
+        <div class="benefit-header">
+            <h3>Đặc Quyền Thành Viên TARA</h3>
+            <p>Tạo tài khoản để trải nghiệm dịch vụ cao cấp và nhận ưu đãi độc quyền dành riêng cho hội viên.</p>
+        </div>
+        <div class="benefit-list">
+            <div class="benefit-item">
+                <div class="benefit-icon">◈</div>
+                <div class="benefit-text">
+                    <h4>Tích điểm mỗi đơn hàng</h4>
+                    <p>1.000 VNĐ = 1 điểm. Đổi điểm lấy ưu đãi giảm giá hoặc quà tặng.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">◈</div>
+                <div class="benefit-text">
+                    <h4>Ưu tiên đặt hàng trước</h4>
+                    <p>Hội viên được đặt hàng trước 48 giờ khi ra mắt bộ sưu tập giới hạn.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">◈</div>
+                <div class="benefit-text">
+                    <h4>Bảo hành ưu đãi</h4>
+                    <p>Hội viên Silver trở lên được gia hạn bảo hành thêm 6 tháng miễn phí.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">◈</div>
+                <div class="benefit-text">
+                    <h4>Giao hàng miễn phí</h4>
+                    <p>Miễn phí vận chuyển toàn quốc cho tất cả đơn hàng của thành viên.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="member-tier">
+            <div class="tier-title">Hạng thành viên</div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background:#9E9EA6;"></div>
+                <div class="tier-name" style="color:#9E9EA6;">Member</div>
+                <div class="tier-bar-wrap"><div class="tier-bar" style="width:100%; background:#9E9EA6;"></div></div>
+                <div class="tier-threshold">0 điểm</div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background:#C9A84C;"></div>
+                <div class="tier-name" style="color:#C9A84C;">Silver</div>
+                <div class="tier-bar-wrap"><div class="tier-bar" style="width:60%; background:#C9A84C;"></div></div>
+                <div class="tier-threshold">5.000 điểm</div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background:#D4AF37;"></div>
+                <div class="tier-name" style="color:#D4AF37;">Gold</div>
+                <div class="tier-bar-wrap"><div class="tier-bar" style="width:35%; background:#D4AF37;"></div></div>
+                <div class="tier-threshold">15.000 điểm</div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background:#1A1A24;"></div>
+                <div class="tier-name">Platinum</div>
+                <div class="tier-bar-wrap"><div class="tier-bar" style="width:15%; background:#1A1A24;"></div></div>
+                <div class="tier-threshold">30.000 điểm</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="footer">
+        <div class="footer-item">
+            <img src="images/logoTara.png" alt="Logo" style="max-height: 250px; margin: 0px;">
+        </div>
+        <div class="footer-item">
+            <h3>VỀ TARA ATELIER</h3>
+            <ul>
+                <li><a href="#">Câu chuyện thương hiệu</a></li>
+                <li><a href="#">Tuyển dụng nghệ nhân</a></li>
+                <li><a href="#">Hệ thống cửa hàng</a></li>
+                <li><a href="#">Chương trình đặc quyền</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>DỊCH VỤ KHÁCH HÀNG</h3>
+            <ul>
+                <li><a href="#">Chính sách hoàn tiền</a></li>
+                <li><a href="#">Chính sách giao hàng tận nơi</a></li>
+                <li><a href="#">Bảo hành trang sức bạc</a></li>
+                <li><a href="#">Xử lý dữ liệu cá nhân</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
+            <p style="margin-bottom: 15px; font-size: 13px; color: #6E6E73;">Theo dõi các bộ sưu tập mới nhất qua mạng xã hội.</p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">PHƯƠNG THỨC THANH TOÁN</h3>
+            <div class="payment-mock">
+                <span class="pay-card">VISA</span>
+                <span class="pay-card">MASTER</span>
+                <span class="pay-card">JCB</span>
+                <span class="pay-card">VNPAY</span>
+            </div>
+        </div>
+        <div class="footer-item" style="display: flex; justify-content: center;">
+            <div>
+                <h3 style="text-transform: uppercase; font-weight: 600;">Thông tin đồ án</h3>
+                <p class="footer-text-small">&copy; 2026 Đồ án Thương hiệu TARA Atelier.</p>
+                <p class="footer-text-small">Thiết kế bởi: <strong>Bùi Thị Thùy Trang</strong></p>
+                <p class="footer-text-small">Mã số sinh viên: 12425083</p>
+                <p class="footer-text-small">Học phần: Thiết kế Web cơ bản</p>
+            </div>
+        </div>
+    </div>
+
+<div id="quick-contact" title="Liên hệ ngay">
+    <img src="images/lienHe.png" id="quick-contact-img">
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TARA Atelier | Trang Sức Thiết Kế Độc Bản</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #hero-section {
+            width: 85%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 0;
+            min-height: 480px;
+        }
+
+        #sidebar-nav {
+            background: whitesmoke;
+            padding: 0;
+        }
+        #sidebar-nav .sid-header {
+            padding: 14px 18px;
+            background: #2e2e85;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #sidebar-nav ul { list-style: none; margin: 0; padding: 0; }
+        #sidebar-nav ul li a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f0f0f;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        #sidebar-nav ul li a:hover { background-color: #e2e2e6; }
+        #sidebar-nav .sid-divider {
+            border-top: 1px solid whitesmoke;
+            margin: 6px 0;
+        }
+        #sidebar-nav .sid-promo {
+            padding: 14px 18px;
+            font-size: 10px;
+            color: #9E9EA6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        #sidebar-nav .sid-badge {
+            font-size: 9px;
+            background: #FF2D55;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+        }
+        #hero-slideshow {
+            width: 100%;
+            height: 480px;
+            overflow: hidden;
+            position: relative;
+        }
+        #hero-slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        #benefits-bar {
+            width: 85%;
+            margin: 10px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid #E5E5E9;
+        }
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            font-size: 25px;
+            gap: 12px;
+            padding: 16px 20px;
+            border-right: 1px solid #E5E5E9;
+        }
+        .benefit-icon {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 8px;
+        }
+        .benefit-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .sid-icon {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            opacity: 0.75;
+            flex-shrink: 0;
+        }
+        .benefit-text strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #1A1A24;
+            letter-spacing: 0.5px;
+        }
+        .benefit-text span {
+            font-size: 11px;
+            color: #9E9EA6;
+        }
+
+        #flash-sale-section {
+            width: 85%;
+            margin: 48px auto 0;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .section-title-block {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .section-label {
+            background: #1A1A24;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bolder;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0 16px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+        }
+        .flash-badge {
+            background: #FF2D55;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        #flash-countdown {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1A1A24;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        #flash-countdown .tc {
+            background: #1A1A24;
+            color: #fff;
+            padding: 3px 7px;
+            font-size: 14px;
+        }
+        .see-all-link {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2e2e85;
+            text-decoration: none;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #2e2e85;
+            padding-bottom: 2px;
+        }
+        .see-all-link:hover { opacity: 0.7; }
+        #flash-sale-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+        .flash-item {
+            position: relative;
+            background: #fff;
+            border: 1px solid #E5E5E9;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .flash-item .fi-img-wrap {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #2121a7;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .flash-item .fi-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .flash-item .fi-name {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #1A1A24;
+            line-height: 1.35;
+            margin-bottom: 6px;
+            min-height: 34px;
+        }
+        .flash-item .fi-price-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .flash-item .fi-price {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FF2D55;
+        }
+        .flash-item .fi-old-price {
+            font-size: 11px;
+            color: #9E9EA6;
+            text-decoration: line-through;
+        }
+        .flash-item .fi-discount {
+            font-size: 9px;
+            font-weight: 700;
+            background: #FF2D55;
+            color: #fff;
+            padding: 2px 5px;
+            margin-left: auto;
+        }
+
+        .fi-progress-wrap {
+            width: 100%;
+            height: 4px;
+            background: #E5E5E9;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+        .fi-progress-bar {
+            height: 100%;
+            background-color: red;
+            border-radius: 2px;
+        }
+        .fi-sold-text {
+            font-size: 10px;
+            color: #9E9EA6;
+            margin-bottom: 8px;
+        }
+        .flash-item .btn-add-to-cart {
+            width: 100%;
+            padding: 6px 0;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: #1A1A24;
+            border: 1px solid #1A1A24;
+            color: #fff;
+            cursor: pointer;
+        }
+        .flash-item .btn-add-to-cart:hover { background: #2e2e85 }
+        
+        #category-showcase {
+            width: 85%;
+            margin: 52px auto 0;
+        }
+        #cat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .cat-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-end;
+        }
+        .cat-card img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+        }
+        .cat-card:hover img { transform: scale(1.06); }
+        .cat-card-overlay {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 20px 16px;
+            background: linear-gradient(to top, rgba(26,26,36,.85) 0%, transparent 100%);
+        }
+        .cat-card-overlay h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+        }
+        .cat-card-overlay span {
+            font-size: 11px;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.5px;
+        }
+
+        #featured-products {
+            width: 85%;
+            margin: 52px auto 0;
+        }
+
+        #brand-strip {
+            width: 100%;
+            background: #0b0b16;
+            margin: 60px 0 0;
+            padding: 48px 0;
+        }
+        #brand-strip-inner {
+            width: 85%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .brand-story-text .bs-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #9E9EA6;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 16px;
+        }
+        .brand-story-text h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.4;
+            margin: 0 0 16px;
+            letter-spacing: 0.5px;
+        }
+        .brand-story-text p {
+            font-size: 13px;
+            color: #9E9EA6;
+            line-height: 1.7;
+            margin: 0 0 24px;
+        }
+        .brand-story-text a {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 24px;
+            transition: border-color .2s;
+            text-transform: uppercase;
+        }
+        .brand-story-text a:hover { border-color: #fff; }
+        .brand-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .bs-stat {
+            border: 2px solid white;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .bs-stat .bs-num {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .bs-stat .bs-desc {
+            font-size: 11px;
+            color: #d9d9e0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 767px) {
+            #hero-section { grid-template-columns: 1fr; }
+            #sidebar-nav { display: none; }
+            #hero-slideshow { height: 220px; }
+            #benefits-bar { grid-template-columns: 1fr 1fr; }
+            .benefit-item:nth-child(2) { border-right: none; }
+            .benefit-item:nth-child(3) { border-right: 1px solid #E5E5E9; }
+            #flash-sale-row { grid-template-columns: repeat(2, 1fr); }
+            #cat-grid { grid-template-columns: repeat(2, 1fr); }
+            #flash-sale-section, #category-showcase, #featured-products { width: 95%; }
+            #hero-section, #benefits-bar { width: 100%; }
+            #brand-strip-inner { grid-template-columns: 1fr; gap: 30px; }
+        }
+        @media (min-width: 768px) and (max-width: 1179px) {
+            #hero-section { grid-template-columns: 180px 1fr; width: 95%; }
+            #benefits-bar { width: 95%; }
+            #flash-sale-row { grid-template-columns: repeat(3, 1fr); }
+            #cat-grid { grid-template-columns: repeat(2, 1fr); }
+            #flash-sale-section, #category-showcase, #featured-products { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top">
+        <div id="top-content">
+            <div id="top-left">TARA ATELIER | Khám Phá Ngay Những Tuyệt Tác Độc Bản Giới Hạn</div>
+            <div id="top-right">HOTLINE: 0332.413.231</div>
+        </div>
+    </div>
+
+    <div id="header">
+        <div id="banner">
+            <div class="logo">
+                <a href="index.html"><img src="images/logoTara.png" alt="TARA Atelier"></a>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li>
+                        <a href="sanpham.html">Danh mục sản phẩm</a>
+                        <ul>
+                            <li><a href="sanpham.html#nhan">Nhẫn</a></li>
+                            <li><a href="sanpham.html#daychuyen">Dây Chuyền</a></li>
+                            <li><a href="sanpham.html#khuyentai">Khuyên Tai</a></li>
+                            <li><a href="sanpham.html#vongtay">Vòng Tay</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="camnang.html">Cẩm nang sử dụng ▾</a>
+                        <ul>
+                            <li><a href="camnang.html#sizeNhan">Cách đo size nhẫn</a></li>
+                            <li><a href="camnang.html#bao-quan">Bảo quản trang sức bạc</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-right-icons">
+                <a href="#" class="nav-icon-link" title="Tìm kiếm">
+                    <img src="images/find.png" alt="Tìm kiếm" class="nav-img-icon">
+                </a>
+                <a href="taikhoan.html" class="nav-icon-link" title="Tài khoản">
+                    <img src="images/account.png" alt="Tài khoản" class="nav-img-icon">
+                </a>
+                <div id="cart-content" title="Giỏ hàng">
+                    <a href="giohang.html"><img src="images/cart.png" alt="Giỏ hàng" class="nav-img-icon cart-icon-img"></a>
+                    <span class="cart-badge">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="hero-section">
+        <nav id="sidebar-nav">
+            <div class="sid-header">☰ &nbsp;Danh mục</div>
+            <ul>
+                <li><a href="#"><img src="images/icon-nhan.png" class="sid-icon" alt="Nhẫn"> Nhẫn <span class="sid-arrow">›</span></a></li>
+                <li><a href="#"><img src="images/icon-daychuyen.png" class="sid-icon" alt="Dây Chuyền"> Dây Chuyền <span class="sid-arrow">›</span></a></li>
+                <li><a href="#"><img src="images/icon-khuyentai.png" class="sid-icon" alt="Khuyên Tai"> Khuyên Tai <span class="sid-arrow">›</span></a></li>
+                <li><a href="#"><img src="images/icon-vongtay.png" class="sid-icon" alt="Vòng Tay"> Vòng Tay <span class="sid-arrow">›</span></a></li>
+            </ul>
+            <hr class="sid-divider">
+            <div class="sid-promo">Ưu đãi đặc biệt</div>
+            <ul>
+                <li>
+                    <a href="sanpham.html">
+                        Bộ sưu tập mới
+                        <span class="sid-badge">HOT</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="sanpham.html">
+                        Flash Sale hôm nay
+                        <span class="sid-badge">-30%</span>
+                    </a>
+                </li>
+                <li><a href="sanpham.html">Độc bản giới hạn <span class="sid-arrow">›</span></a></li>
+                <li><a href="camnang.html">Cẩm nang trang sức <span class="sid-arrow">›</span></a></li>
+            </ul>
+        </nav>
+        <div id="slideshow">
+            <img id="banner-img" src="images/banner1.jpg" alt="TARA Atelier Banner">
+        </div>
+    </div>
+
+    <div id="benefits-bar">
+        <div class="benefit-item">
+            <div class="benefit-icon">
+                <img src="images/icon-vanchuyen.jpg" alt="Vận chuyển">
+            </div>
+            <div class="benefit-text">
+                <strong>Miễn phí vận chuyển</strong>
+                <span>Đơn hàng từ 500.000đ</span>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">
+                <img src="images/icon-baohanh.png" alt="Bảo hành">
+            </div>
+            <div class="benefit-text">
+                <strong>Bảo hành trọn đời</strong>
+                <span>Trang sức bạc &amp; mạ vàng</span>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">
+                <img src="images/icon-docban.png" alt="Độc bản">
+            </div>
+            <div class="benefit-text">
+                <strong>Thiết kế độc bản</strong>
+                <span>Giới hạn số lượng mỗi mẫu</span>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <div class="benefit-icon">
+                <img src="images/icon-doitra.jpg" alt="Đổi trả">
+            </div>
+            <div class="benefit-text">
+                <strong>Đổi trả 30 ngày</strong>
+                <span>Hoàn tiền 100% nếu lỗi</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="flash-sale-section">
+        <div class="section-header">
+            <div class="section-title-block">
+                <div class="section-label">Flash Sale</div>
+                <div class="flash-badge">Hôm nay</div>
+                <div id="flash-countdown">
+                    Kết thúc sau:&nbsp;
+                    <span class="tc" id="fc-h">00</span> :
+                    <span class="tc" id="fc-m">00</span> :
+                    <span class="tc" id="fc-s">00</span>
+                </div>
+            </div>
+            <a href="sanpham.html" class="see-all-link">Xem tất cả ›</a>
+        </div>
+
+        <div id="flash-sale-row">
+            <div class="flash-item product-item">
+                <div class="fi-img-wrap">
+                    <img src="images/sp1.jpg" alt="Vòng cổ mặt hoa">
+                </div>
+                <div class="fi-name">Vòng cổ mặt hoa năm cánh pha lê TARA</div>
+                <div class="fi-price-row">
+                    <span class="fi-price">2,200,000đ</span>
+                    <span class="fi-old-price">3,150,000đ</span>
+                    <span class="fi-discount">-30%</span>
+                </div>
+                <div class="fi-progress-wrap"><div class="fi-progress-bar" style="width:72%"></div></div>
+                <div class="fi-sold-text">Đã bán 72%</div>
+                <button class="btn-add-to-cart">MUA NGAY</button>
+                <p class="name" style="display:none">Vòng cổ mặt hoa năm cánh pha lê TARA</p>
+                <span class="price" style="display:none">2200000</span>
+            </div>
+            <div class="flash-item product-item">
+                <div class="fi-img-wrap">
+                    <img src="images/sp3.jpg" alt="Khuyên tai hoa">
+                </div>
+                <div class="fi-name">Khuyên Tai Hoa Rơi Daisy Drop đính đá</div>
+                <div class="fi-price-row">
+                    <span class="fi-price">1,290,000đ</span>
+                    <span class="fi-old-price">1,850,000đ</span>
+                    <span class="fi-discount">-30%</span>
+                </div>
+                <div class="fi-progress-wrap"><div class="fi-progress-bar" style="width:55%"></div></div>
+                <div class="fi-sold-text">Đã bán 55%</div>
+                <button class="btn-add-to-cart">MUA NGAY</button>
+                <p class="name" style="display:none">Khuyên Tai Hoa Rơi Daisy Drop đính đá</p>
+                <span class="price" style="display:none">1290000</span>
+            </div>
+            <div class="flash-item product-item">
+                <div class="fi-img-wrap">
+                    <img src="images/sp7.jpg" alt="Hoa tai bạc">
+                </div>
+                <div class="fi-name">Hoa tai bạc ý Celestial Moon &amp; Star</div>
+                <div class="fi-price-row">
+                    <span class="fi-price">875,000đ</span>
+                    <span class="fi-old-price">1,250,000đ</span>
+                    <span class="fi-discount">-30%</span>
+                </div>
+                <div class="fi-progress-wrap"><div class="fi-progress-bar" style="width:88%"></div></div>
+                <div class="fi-sold-text">Đã bán 88% — Sắp hết!</div>
+                <button class="btn-add-to-cart">MUA NGAY</button>
+                <p class="name" style="display:none">Hoa tai bạc ý Celestial Moon & Star</p>
+                <span class="price" style="display:none">875000</span>
+            </div>
+            <div class="flash-item product-item">
+                <div class="fi-img-wrap">
+                    <img src="images/sp11.jpg" alt="Hoa tai starburst">
+                </div>
+                <div class="fi-name">Hoa tai dáng thả starburst lấp lánh</div>
+                <div class="fi-price-row">
+                    <span class="fi-price">665,000đ</span>
+                    <span class="fi-old-price">950,000đ</span>
+                    <span class="fi-discount">-30%</span>
+                </div>
+                <div class="fi-progress-wrap"><div class="fi-progress-bar" style="width:40%"></div></div>
+                <div class="fi-sold-text">Đã bán 40%</div>
+                <button class="btn-add-to-cart">MUA NGAY</button>
+                <p class="name" style="display:none">Hoa tai dáng thả starburst lấp lánh</p>
+                <span class="price" style="display:none">665000</span>
+            </div>
+            <div class="flash-item product-item">
+                <div class="fi-img-wrap">
+                    <img src="images/sp19.jpg" alt="Nhẫn hở bướm">
+                </div>
+                <div class="fi-name">Nhẫn hở hình bướm đính đá</div>
+                <div class="fi-price-row">
+                    <span class="fi-price">1,015,000đ</span>
+                    <span class="fi-old-price">1,450,000đ</span>
+                    <span class="fi-discount">-30%</span>
+                </div>
+                <div class="fi-progress-wrap"><div class="fi-progress-bar" style="width:63%"></div></div>
+                <div class="fi-sold-text">Đã bán 63%</div>
+                <button class="btn-add-to-cart">MUA NGAY</button>
+                <p class="name" style="display:none">Nhẫn hở hình bướm đính đá</p>
+                <span class="price" style="display:none">1015000</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="category-showcase">
+        <div class="section-header">
+            <div class="section-title-block">
+                <div class="section-label">Danh Mục</div>
+            </div>
+            <a href="sanpham.html" class="see-all-link">Khám phá tất cả ›</a>
+        </div>
+        <div id="cat-grid">
+            <a href="sanpham.html#nhan" style="text-decoration:none;">
+                <div class="cat-card cat-bg-1">
+                    <img src="images/sp2.jpg" alt="Nhẫn">
+                    <div class="cat-card-overlay">
+                        <h3>Nhẫn</h3>
+                        <span>Bộ sưu tập đặc sắc</span>
+                    </div>
+                </div>
+            </a>
+            <a href="sanpham.html#daychuyen" style="text-decoration:none;">
+                <div class="cat-card cat-bg-2">
+                    <img src="images/sp13.jpg" alt="Dây Chuyền">
+                    <div class="cat-card-overlay">
+                        <h3>Dây Chuyền</h3>
+                        <span>Tinh tế & sang trọng</span>
+                    </div>
+                </div>
+            </a>
+            <a href="sanpham.html#khuyentai" style="text-decoration:none;">
+                <div class="cat-card cat-bg-3">
+                    <img src="images/sp4.jpg" alt="Khuyên Tai">
+                    <div class="cat-card-overlay">
+                        <h3>Khuyên Tai</h3>
+                        <span>Từ cổ điển đến hiện đại</span>
+                    </div>
+                </div>
+            </a>
+            <a href="sanpham.html#vongtay" style="text-decoration:none;">
+                <div class="cat-card cat-bg-4">
+                    <img src="images/sp12.jpg" alt="Vòng Tay">
+                    <div class="cat-card-overlay">
+                        <h3>Vòng Tay</h3>
+                        <span>Phong cách mỗi ngày</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div id="featured-products">
+        <div class="section-header">
+            <div class="section-title-block">
+                <div class="section-label">Nổi Bật</div>
+            </div>
+            <a href="sanpham.html" class="see-all-link">Xem tất cả sản phẩm ›</a>
+        </div>
+
+        <div class="list-product-new">
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp1.jpg" class="sp-img" alt="sp1"></div>
+                <p class="name">Vòng cổ mặt hoa năm cánh pha lê TARA</p>
+                <div class="product-meta">
+                    <span class="price">3,150,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp2.jpg" class="sp-img" alt="sp2"></div>
+                <p class="name">Nhẫn hoa mai mạ vàng cao cấp</p>
+                <div class="product-meta">
+                    <span class="price">4,200,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp3.jpg" class="sp-img" alt="sp3"></div>
+                <p class="name">Khuyên Tai Hoa Rơi Daisy Drop đính đá</p>
+                <div class="product-meta">
+                    <span class="price">1,850,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp4.jpg" class="sp-img" alt="sp4"></div>
+                <p class="name">Hoa tai vàng golden butterfly TARA</p>
+                <div class="product-meta">
+                    <span class="price">2,400,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp5.jpg" class="sp-img" alt="sp5"></div>
+                <p class="name">Hoa tai bướm khảm xà cừ butterfly</p>
+                <div class="product-meta">
+                    <span class="price">2,950,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp6.jpg" class="sp-img" alt="sp6"></div>
+                <p class="name">Nhẫn kép White gold</p>
+                <div class="product-meta">
+                    <span class="price">5,100,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp7.jpg" class="sp-img" alt="sp7"></div>
+                <p class="name">Hoa tai bạc ý Celestial Moon &amp; Star</p>
+                <div class="product-meta">
+                    <span class="price">1,250,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp8.jpg" class="sp-img" alt="sp8"></div>
+                <p class="name">Hoa tai winter snowflake ngọc trai</p>
+                <div class="product-meta">
+                    <span class="price">3,800,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp9.jpg" class="sp-img" alt="sp9"></div>
+                <p class="name">Combo nhẫn bạc ý leafy vine đính đá</p>
+                <div class="product-meta">
+                    <span class="price">3,400,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp10.jpg" class="sp-img" alt="sp10"></div>
+                <p class="name">Nhẫn nữ Golden flower vine</p>
+                <div class="product-meta">
+                    <span class="price">2,150,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp11.jpg" class="sp-img" alt="sp11"></div>
+                <p class="name">Hoa tai dáng thả starburst lấp lánh</p>
+                <div class="product-meta">
+                    <span class="price">950,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp12.jpg" class="sp-img" alt="sp12"></div>
+                <p class="name">Lắc tay xích đính bi vàng</p>
+                <div class="product-meta">
+                    <span class="price">4,600,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp13.jpg" class="sp-img" alt="sp13"></div>
+                <p class="name">Dây chuyền vàng cành lá tinh khôi</p>
+                <div class="product-meta">
+                    <span class="price">2,800,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp14.jpg" class="sp-img" alt="sp14"></div>
+                <p class="name">Nhẫn vàng tiara crown đính đá</p>
+                <div class="product-meta">
+                    <span class="price">3,250,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp15.jpg" class="sp-img" alt="sp15"></div>
+                <p class="name">Nhẫn hở đính đá giọt nước</p>
+                <div class="product-meta">
+                    <span class="price">1,600,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp16.jpg" class="sp-img" alt="sp16"></div>
+                <p class="name">Dây chuyền vàng mặt chuỗi hoa mai</p>
+                <div class="product-meta">
+                    <span class="price">6,200,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp17.jpg" class="sp-img" alt="sp17"></div>
+                <p class="name">Nhẫn vàng lượn sóng đính đá khảm</p>
+                <div class="product-meta">
+                    <span class="price">2,300,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp18.jpg" class="sp-img" alt="sp18"></div>
+                <p class="name">Nhẫn vàng butterfly đính đá kiêu xa</p>
+                <div class="product-meta">
+                    <span class="price">1,900,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp19.jpg" class="sp-img" alt="sp19"></div>
+                <p class="name">Nhẫn hở hình bướm đính đá</p>
+                <div class="product-meta">
+                    <span class="price">1,450,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+            <div class="col-3"><div class="product-item">
+                <div class="photo-wrap"><img src="images/sp20.jpg" class="sp-img" alt="sp20"></div>
+                <p class="name">Khuyên tai khảm xà cừ cao cấp</p>
+                <div class="product-meta">
+                    <span class="price">1,990,000 VNĐ</span>
+                    <button class="btn-add-to-cart">MUA NGAY</button>
+                </div>
+            </div></div>
+        </div>
+    </div>
+
+    <div id="brand-strip">
+        <div id="brand-strip-inner">
+            <div class="brand-story-text">
+                <span class="bs-tag">Câu chuyện thương hiệu</span>
+                <h2>Mỗi tác phẩm là<br>một câu chuyện riêng</h2>
+                <p>TARA Atelier được sáng lập với triết lý rằng trang sức không chỉ là phụ kiện — mà là ngôn ngữ của cảm xúc. Mỗi mẫu thiết kế được chế tác thủ công, số lượng giới hạn, mang theo dấu ấn nghệ thuật không thể sao chép.</p>
+                <a href="camnang.html">Khám phá thêm →</a>
+            </div>
+            <div class="brand-stats">
+                <div class="bs-stat">
+                    <span class="bs-num">500+</span>
+                    <span class="bs-desc">Mẫu độc bản</span>
+                </div>
+                <div class="bs-stat">
+                    <span class="bs-num">8K+</span>
+                    <span class="bs-desc">Khách hàng tin yêu</span>
+                </div>
+                <div class="bs-stat">
+                    <span class="bs-num">100%</span>
+                    <span class="bs-desc">Thủ công cao cấp</span>
+                </div>
+                <div class="bs-stat">
+                    <span class="bs-num">∞</span>
+                    <span class="bs-desc">Bảo hành trọn đời</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="footer-item">
+            <img src="images/logoTara.png" alt="Logo" style="max-height: 250px; margin: 0px;">
+        </div>
+        <div class="footer-item">
+            <h3>VỀ TARA ATELIER</h3>
+            <ul>
+                <li><a href="#">Câu chuyện thương hiệu</a></li>
+                <li><a href="#">Tuyển dụng nghệ nhân</a></li>
+                <li><a href="#">Hệ thống cửa hàng</a></li>
+                <li><a href="#">Chương trình đặc quyền</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>DỊCH VỤ KHÁCH HÀNG</h3>
+            <ul>
+                <li><a href="#">Chính sách hoàn tiền</a></li>
+                <li><a href="#">Chính sách giao hàng tận nơi</a></li>
+                <li><a href="#">Bảo hành trang sức bạc</a></li>
+                <li><a href="#">Xử lý dữ liệu cá nhân</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
+            <p style="margin-bottom: 15px; font-size: 13px; color: #6E6E73;">Theo dõi các bộ sưu tập mới nhất qua mạng xã hội.</p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">PHƯƠNG THỨC THANH TOÁN</h3>
+            <div class="payment-mock">
+                <span class="pay-card">VISA</span>
+                <span class="pay-card">MASTER</span>
+                <span class="pay-card">JCB</span>
+                <span class="pay-card">VNPAY</span>
+            </div>
+        </div>
+        <div class="footer-item" style="display: flex; justify-content: center;">
+            <div>
+                <h3 style="text-transform: uppercase; font-weight: 600;">Thông tin đồ án</h3>
+                <p class="footer-text-small">&copy; 2026 Đồ án Thương hiệu TARA Atelier.</p>
+                <p class="footer-text-small">Thiết kế bởi: <strong>Bùi Thị Thùy Trang</strong></p>
+                <p class="footer-text-small">Mã số sinh viên: 12425083</p>
+                <p class="footer-text-small">Học phần: Thiết kế Web cơ bản</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="quick-contact" title="Liên hệ ngay">
+        <img src="images/lienHe.png" id="quick-contact-img" alt="Liên hệ">
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        (function() {
+            function updateCountdown() {
+                const now = new Date();
+                const end = new Date();
+                end.setHours(23, 59, 59, 0);
+                const diff = Math.max(0, end - now);
+                const h = Math.floor(diff / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                const pad = n => String(n).padStart(2, '0');
+                const fch = document.getElementById('fc-h');
+                const fcm = document.getElementById('fc-m');
+                const fcs = document.getElementById('fc-s');
+                if (fch) fch.textContent = pad(h);
+                if (fcm) fcm.textContent = pad(m);
+                if (fcs) fcs.textContent = pad(s);
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
+    </script>
+</body>
+</html>

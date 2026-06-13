@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Mục Sản Phẩm | TARA Atelier</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero {
+            width: 100%; height: 180px;
+            background-color: #1A1A24;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 10px;
+        }
+        .page-hero h1 {
+            color: #FFFFFF; font-size: 28px; letter-spacing: 6px;
+            font-weight: 300; text-transform: uppercase; margin: 0;
+        }
+        .breadcrumb { color: #6E6E73; font-size: 12px; letter-spacing: 1px; }
+        .breadcrumb a { color: #9E9EA6; text-decoration: none; }
+        .breadcrumb a:hover { color: #fff; }
+        .breadcrumb span { margin: 0 8px; color: #6E6E73; }
+ 
+        .catalog-layout {
+            width: 85%; margin: 50px auto 80px auto;
+            display: flex; gap: 40px; align-items: flex-start;
+        }
+
+        .sidebar {
+            width: 220px; flex-shrink: 0;
+            position: sticky; top: 110px;
+        }
+        .filter-block {
+            border-bottom: 1px solid #E5E5E9;
+            padding-bottom: 24px; margin-bottom: 24px;
+        }
+        .filter-block:last-child { border-bottom: none; }
+        .filter-title {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #1A1A24; margin-bottom: 16px;
+        }
+        .filter-option {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 10px; cursor: pointer;
+        }
+        .filter-option input[type="checkbox"] {
+            width: 14px; height: 14px;
+            accent-color: #1A1A24; cursor: pointer;
+        }
+        .filter-option label {
+            font-size: 13px; color: #6E6E73;
+            cursor: pointer; transition: color 0.2s;
+        }
+        .filter-option:hover label { color: #1A1A24; }
+ 
+        .price-range-row { display: flex; gap: 8px; align-items: center; }
+        .price-range-row input {
+            width: 80px; border: 1px solid #E5E5E9;
+            padding: 6px 8px; font-size: 11px; color: #1A1A24; outline: none;
+        }
+        .price-range-row span { font-size: 12px; color: #6E6E73; }
+        .btn-apply-filter {
+            width: 100%; margin-top: 10px; padding: 9px;
+            background: #1A1A24; color: #fff; font-size: 11px;
+            font-weight: bold; letter-spacing: 1.5px; border: none;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .btn-apply-filter:hover { background: #6E6E73; }
+ 
+        .btn-reset-filter {
+            width: 100%; margin-top: 6px; padding: 8px;
+            background: transparent; color: #6E6E73; font-size: 11px;
+            font-weight: 600; letter-spacing: 1px; border: 1px solid #E5E5E9;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .btn-reset-filter:hover { border-color: #1A1A24; color: #1A1A24; }
+ 
+        .catalog-main { flex: 1; min-width: 0; }
+ 
+        .cat-section { margin-bottom: 60px; scroll-margin-top: 120px; }
+        .cat-section-header {
+            display: flex; align-items: center; gap: 20px;
+            margin-bottom: 24px; padding-bottom: 14px;
+            border-bottom: 2px solid #1A1A24;
+        }
+        .cat-section-title {
+            font-size: 13px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase; color: #1A1A24;
+        }
+        .cat-section-count {
+            font-size: 11px; color: #9E9EA6; letter-spacing: 1px;
+        }
+        .cat-section-line { flex: 1; height: 1px; background: #E5E5E9; }
+ 
+        .catalog-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid #E5E5E9;
+        }
+        .catalog-count { font-size: 13px; color: #6E6E73; }
+        .catalog-sort { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #6E6E73; }
+        .catalog-sort select {
+            border: 1px solid #E5E5E9; padding: 6px 12px;
+            font-size: 12px; color: #1A1A24; background: #fff;
+            outline: none; cursor: pointer;
+        }
+ 
+        .product-grid { width: 100%; }
+        .product-grid::after { content: ""; display: table; clear: both; }
+        .product-grid .col-3 { float: left; width: 33.33%; padding: 10px; }
+ 
+        .no-results {
+            text-align: center; padding: 60px 20px;
+            color: #9E9EA6; font-size: 14px; letter-spacing: 1px;
+            display: none;
+        }
+        .no-results.visible { display: block; }
+
+        .product-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: #1A1A24; color: #fff;
+            font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+            padding: 3px 8px; z-index: 2;
+        }
+        .product-badge.sale { background: #FF2D55; }
+        .photo-wrap-rel { position: relative; }
+
+        .active-filters {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            margin-bottom: 20px; min-height: 0;
+        }
+        .filter-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; background: #1A1A24; color: #fff;
+            font-size: 10px; font-weight: 600; letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .filter-chip .chip-x { font-size: 12px; opacity: 0.7; }
+        .filter-chip:hover .chip-x { opacity: 1; }
+
+        .col-3.hidden-by-filter { display: none; }
+
+        .pagination {
+            display: flex; gap: 6px; justify-content: center; margin-top: 50px;
+        }
+        .page-btn {
+            width: 36px; height: 36px; border: 1px solid #E5E5E9;
+            background: #fff; font-size: 12px; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .page-btn.active, .page-btn:hover { background: #1A1A24; color: #fff; border-color: #1A1A24; }
+
+        @media only screen and (max-width: 767px) {
+            .catalog-layout { flex-direction: column; width: 94%; gap: 20px; }
+            .sidebar { width: 100%; position: static; }
+            .product-grid .col-3 { width: 50%; padding: 6px; }
+            .cat-section-header { flex-wrap: wrap; }
+        }
+        @media only screen and (min-width: 768px) and (max-width: 1179px) {
+            .catalog-layout { width: 92%; }
+            .product-grid .col-3 { width: 50%; }
+        }
+    </style>
+</head>
+<body>
+ 
+<div id="top">
+    <div id="top-content">
+        <div id="top-left">TARA ATELIER // Khám Phá Ngay Những Tuyệt Tác Độc Bản Giới Hạn</div>
+        <div id="top-right">HOTLINE: 0332.413.231</div>
+    </div>
+</div>
+ 
+<div id="header">
+    <div id="banner">
+        <div class="logo">
+            <a href="index.html"><img src="images/logoTara.png" alt="TARA Atelier"></a>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li>
+                    <a href="sanpham.html">Danh mục sản phẩm</a>
+                    <ul>
+                        <li><a href="sanpham.html#nhan">Nhẫn</a></li>
+                        <li><a href="sanpham.html#daychuyen">Dây Chuyền</a></li>
+                        <li><a href="sanpham.html#khuyentai">Khuyên Tai</a></li>
+                        <li><a href="sanpham.html#vongtay">Vòng Tay</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="camnang.html">Cẩm nang sử dụng ▾</a>
+                    <ul>
+                        <li><a href="camnang.html#bao-quan">Bảo quản trang sức bạc</a></li>
+                        <li><a href="camnang.html#do-size">Cách đo size nhẫn</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="header-right-icons">
+            <a href="taikhoan.html" class="nav-icon-link" title="Tài khoản">
+                <img src="images/account.png" alt="Tài khoản" class="nav-img-icon">
+            </a>
+            <div id="cart-content" title="Giỏ hàng">
+                <a href="giohang.html"><img src="images/cart.png" alt="Giỏ hàng" class="nav-img-icon cart-icon-img"></a>
+                <span class="cart-badge">0</span>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<div class="page-hero">
+    <h1>Danh Mục Sản Phẩm</h1>
+    <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a>
+        <span>/</span>
+        Danh mục sản phẩm
+    </div>
+</div>
+ 
+<div class="catalog-layout">
+ 
+    <div class="sidebar">
+        <div class="filter-block">
+            <div class="filter-title">Danh mục</div>
+            <div class="filter-option">
+                <input type="checkbox" id="cat-nhan" data-filter-cat="nhan">
+                <label for="cat-nhan">Nhẫn <span class="cat-count"></span></label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="cat-day" data-filter-cat="daychuyen">
+                <label for="cat-day">Dây Chuyền <span class="cat-count"></span></label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="cat-khuyen" data-filter-cat="khuyentai">
+                <label for="cat-khuyen">Khuyên Tai <span class="cat-count"></span></label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="cat-vong" data-filter-cat="vongtay">
+                <label for="cat-vong">Vòng Tay <span class="cat-count"></span></label>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <div class="filter-title">Chất liệu</div>
+            <div class="filter-option">
+                <input type="checkbox" id="mat-bac" data-filter-mat="bac925">
+                <label for="mat-bac">Bạc 925</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="mat-vang" data-filter-mat="mavang">
+                <label for="mat-vang">Mạ Vàng 18K</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="mat-white" data-filter-mat="whitegold">
+                <label for="mat-white">White Gold</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="mat-da" data-filter-mat="dinhda">
+                <label for="mat-da">Đính Đá Pha Lê</label>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <div class="filter-title">Mức giá</div>
+            <div class="price-range-row">
+                <input type="number" id="price-min" placeholder="Từ" min="0" step="100000">
+                <span>—</span>
+                <input type="number" id="price-max" placeholder="Đến" min="0" step="100000">
+            </div>
+            <button class="btn-apply-filter" id="btn-apply">ÁP DỤNG</button>
+            <button class="btn-reset-filter" id="btn-reset">ĐẶT LẠI TẤT CẢ</button>
+        </div>
+
+        <div class="filter-block">
+            <div class="filter-title">Bộ sưu tập</div>
+            <div class="filter-option">
+                <input type="checkbox" id="col-moon" data-filter-col="celestial">
+                <label for="col-moon">Celestial Moon</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="col-winter" data-filter-col="winter">
+                <label for="col-winter">Winter Series</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="col-golden" data-filter-col="golden">
+                <label for="col-golden">Golden Butterfly</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" id="col-leafy" data-filter-col="leafy">
+                <label for="col-leafy">Leafy Vine</label>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="catalog-main">
+        <div class="catalog-toolbar">
+            <div class="catalog-count" id="result-count">Hiển thị <strong id="count-shown">12</strong> trong tổng số <strong id="count-total">12</strong> sản phẩm</div>
+            <div class="catalog-sort">
+                <span>Sắp xếp:</span>
+                <select id="sort-select">
+                    <option value="default">Nổi bật nhất</option>
+                    <option value="price-asc">Giá thấp → cao</option>
+                    <option value="price-desc">Giá cao → thấp</option>
+                    <option value="new">Mới nhất</option>
+                </select>
+            </div>
+        </div>
+ 
+        <div class="active-filters" id="active-filters"></div>
+
+        <div class="cat-section" id="nhan">
+            <div class="cat-section-header">
+                <span class="cat-section-title">Nhẫn</span>
+                <span class="cat-section-count" id="count-nhan"></span>
+                <div class="cat-section-line"></div>
+            </div>
+            <div class="product-grid" id="grid-nhan">
+                <div class="col-3" data-cat="nhan" data-mat="mavang" data-col="default" data-price="4200000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp2.jpg" alt="Nhẫn hoa mai mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn hoa mai mạ vàng cao cấp</p>
+                        <div class="product-meta">
+                            <span class="price">4,200,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="whitegold" data-col="default" data-price="5100000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp6.jpg" alt="Nhẫn kép White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn kép White Gold</p>
+                        <div class="product-meta">
+                            <span class="price">5,100,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="dinhda" data-col="leafy" data-price="3400000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp9.jpg" alt="Combo nhẫn bạc ý Leafy Vine" class="sp-img">
+                        </div>
+                        <p class="name">Combo nhẫn bạc ý Leafy Vine đính đá</p>
+                        <div class="product-meta">
+                            <span class="price">3,400,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-3" data-cat="nhan" data-mat="dinhda" data-col="default" data-price="6300000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp21.jpg" alt="Nhẫn đính đá Sapphire" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn đính đá Sapphire Rose Cut</p>
+                        <div class="product-meta">
+                            <span class="price">6,300,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3" data-cat="nhan" data-mat="bac925" data-col="celestial" data-price="2800000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp24.jpg" alt="Nhẫn Celestial Moon bạc 925" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Celestial Moon Bạc 925</p>
+                        <div class="product-meta">
+                            <span class="price">2,800,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3" data-cat="nhan" data-mat="mavang" data-col="golden" data-price="5500000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp25.jpg" alt="Nhẫn Golden Butterfly mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Golden Butterfly Mạ Vàng 18K</p>
+                        <div class="product-meta">
+                            <span class="price">5,500,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="bac925" data-col="winter" data-price="3100000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp26.jpg" alt="Nhẫn Winter Frost bạc 925" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Winter Frost Bạc 925</p>
+                        <div class="product-meta">
+                            <span class="price">3,100,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="dinhda" data-col="celestial" data-price="7200000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp27.jpg" alt="Nhẫn Celestial Star đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Celestial Star Đính Đá Pha Lê</p>
+                        <div class="product-meta">
+                            <span class="price">7,200,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="whitegold" data-col="leafy" data-price="6800000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp28.jpg" alt="Nhẫn Leafy Vine White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Leafy Vine White Gold Tinh Tế</p>
+                        <div class="product-meta">
+                            <span class="price">6,800,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="mavang" data-col="celestial" data-price="4750000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp29.jpg" alt="Nhẫn Moon Glow mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Moon Glow Mạ Vàng Celestial</p>
+                        <div class="product-meta">
+                            <span class="price">4,750,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="nhan" data-mat="bac925" data-col="leafy" data-price="2350000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp30.jpg" alt="Nhẫn lá bạc 925 Leafy Vine" class="sp-img">
+                        </div>
+                        <p class="name">Nhẫn Lá Bạc 925 Leafy Vine Mảnh Mai</p>
+                        <div class="product-meta">
+                            <span class="price">2,350,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" id="no-nhan">Không tìm thấy sản phẩm phù hợp trong danh mục Nhẫn.</div>
+        </div>
+ 
+        <div class="cat-section" id="daychuyen">
+            <div class="cat-section-header">
+                <span class="cat-section-title">Dây Chuyền</span>
+                <span class="cat-section-count" id="count-daychuyen"></span>
+                <div class="cat-section-line"></div>
+            </div>
+            <div class="product-grid" id="grid-daychuyen">
+                <div class="col-3" data-cat="daychuyen" data-mat="dinhda" data-col="celestial" data-price="3150000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp1.jpg" alt="Vòng cổ mặt hoa pha lê" class="sp-img">
+                        </div>
+                        <p class="name">Vòng cổ mặt hoa năm cánh pha lê TARA</p>
+                        <div class="product-meta">
+                            <span class="price">3,150,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="bac925" data-col="default" data-price="4600000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp22.jpg" alt="Dây chuyền ngọc thạch Jade Flow" class="sp-img">
+                        </div>
+                        <p class="name">Dây chuyền ngọc thạch Jade Flow</p>
+                        <div class="product-meta">
+                            <span class="price">4,600,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="mavang" data-col="golden" data-price="3800000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp31.jpg" alt="Dây chuyền Golden Butterfly mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Golden Butterfly Mạ Vàng 18K</p>
+                        <div class="product-meta">
+                            <span class="price">3,800,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="dinhda" data-col="winter" data-price="5200000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp32.jpg" alt="Dây chuyền Winter Ice đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Winter Ice Đính Đá Pha Lê</p>
+                        <div class="product-meta">
+                            <span class="price">5,200,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="whitegold" data-col="celestial" data-price="6900000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp33.jpg" alt="Dây chuyền Celestial White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Celestial Crescent White Gold</p>
+                        <div class="product-meta">
+                            <span class="price">6,900,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="bac925" data-col="leafy" data-price="2700000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp34.jpg" alt="Dây chuyền Leafy Vine bạc 925" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Leafy Vine Bạc 925 Thủ Công</p>
+                        <div class="product-meta">
+                            <span class="price">2,700,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="dinhda" data-col="golden" data-price="4300000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp35.jpg" alt="Dây chuyền cánh bướm đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Cánh Bướm Đính Đá Golden</p>
+                        <div class="product-meta">
+                            <span class="price">4,300,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="mavang" data-col="celestial" data-price="3500000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp36.jpg" alt="Dây chuyền mặt trăng mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Mặt Trăng Mạ Vàng Celestial</p>
+                        <div class="product-meta">
+                            <span class="price">3,500,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="bac925" data-col="winter" data-price="3200000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp37.jpg" alt="Dây chuyền Winter Snowfall bạc" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Winter Snowfall Bạc 925</p>
+                        <div class="product-meta">
+                            <span class="price">3,200,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="daychuyen" data-mat="whitegold" data-col="leafy" data-price="7500000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp16.jpg" alt="Dây chuyền Leafy Vine White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Dây Chuyền Leafy Vine White Gold Độc Bản</p>
+                        <div class="product-meta">
+                            <span class="price">7,500,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" id="no-daychuyen">Không tìm thấy sản phẩm phù hợp trong danh mục Dây Chuyền.</div>
+        </div>
+
+        <div class="cat-section" id="khuyentai">
+            <div class="cat-section-header">
+                <span class="cat-section-title">Khuyên Tai</span>
+                <span class="cat-section-count" id="count-khuyentai"></span>
+                <div class="cat-section-line"></div>
+            </div>
+            <div class="product-grid" id="grid-khuyentai">
+                <div class="col-3" data-cat="khuyentai" data-mat="dinhda" data-col="default" data-price="1850000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp3.jpg" alt="Khuyên Tai Hoa Rơi Daisy" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Hoa Rơi Daisy Drop đính đá</p>
+                        <div class="product-meta">
+                            <span class="price">1,850,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="mavang" data-col="golden" data-price="2400000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp4.jpg" alt="Hoa tai vàng Golden Butterfly" class="sp-img">
+                        </div>
+                        <p class="name">Hoa tai vàng Golden Butterfly TARA</p>
+                        <div class="product-meta">
+                            <span class="price">2,400,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="bac925" data-col="golden" data-price="2950000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp5.jpg" alt="Hoa tai bướm khảm xà cừ" class="sp-img">
+                        </div>
+                        <p class="name">Hoa tai bướm khảm xà cừ Butterfly</p>
+                        <div class="product-meta">
+                            <span class="price">2,950,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="bac925" data-col="celestial" data-price="1250000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp7.jpg" alt="Hoa tai bạc ý Celestial Moon" class="sp-img">
+                        </div>
+                        <p class="name">Hoa tai bạc ý Celestial Moon & Star</p>
+                        <div class="product-meta">
+                            <span class="price">1,250,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="bac925" data-col="winter" data-price="3800000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp8.jpg" alt="Hoa tai Winter Snowflake ngọc trai" class="sp-img">
+                        </div>
+                        <p class="name">Hoa tai Winter Snowflake ngọc trai</p>
+                        <div class="product-meta">
+                            <span class="price">3,800,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="whitegold" data-col="celestial" data-price="4500000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp11.jpg" alt="Khuyên tai Celestial White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Celestial Moon White Gold</p>
+                        <div class="product-meta">
+                            <span class="price">4,500,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="mavang" data-col="leafy" data-price="3100000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp20.jpg" alt="Khuyên tai Leafy Vine mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Leafy Vine Mạ Vàng 18K</p>
+                        <div class="product-meta">
+                            <span class="price">3,100,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="dinhda" data-col="winter" data-price="2600000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp38.jpg" alt="Khuyên tai Winter Crystal đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Winter Crystal Đính Đá Pha Lê</p>
+                        <div class="product-meta">
+                            <span class="price">2,600,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="bac925" data-col="leafy" data-price="1650000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp39.jpg" alt="Khuyên tai Leafy Drop bạc 925" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Leafy Drop Bạc 925 Thủ Công</p>
+                        <div class="product-meta">
+                            <span class="price">1,650,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="dinhda" data-col="golden" data-price="3350000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp40.jpg" alt="Khuyên tai Golden Petal đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Golden Petal Đính Đá Tự Nhiên</p>
+                        <div class="product-meta">
+                            <span class="price">3,350,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="khuyentai" data-mat="whitegold" data-col="golden" data-price="5800000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp41.jpg" alt="Khuyên tai Golden Wing White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Khuyên Tai Golden Wing White Gold Sang Trọng</p>
+                        <div class="product-meta">
+                            <span class="price">5,800,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" id="no-khuyentai">Không tìm thấy sản phẩm phù hợp trong danh mục Khuyên Tai.</div>
+        </div>
+
+        <div class="cat-section" id="vongtay">
+            <div class="cat-section-header">
+                <span class="cat-section-title">Vòng Tay</span>
+                <span class="cat-section-count" id="count-vongtay"></span>
+                <div class="cat-section-line"></div>
+            </div>
+            <div class="product-grid" id="grid-vongtay">
+                <div class="col-3" data-cat="vongtay" data-mat="bac925" data-col="default" data-price="2100000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp23.jpg" alt="Vòng tay đá tự nhiên Aurora" class="sp-img">
+                        </div>
+                        <p class="name">Vòng tay đá tự nhiên Aurora</p>
+                        <div class="product-meta">
+                            <span class="price">2,100,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="mavang" data-col="golden" data-price="3600000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp12.jpg" alt="Vòng tay Golden Butterfly mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Golden Butterfly Mạ Vàng 18K</p>
+                        <div class="product-meta">
+                            <span class="price">3,600,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="dinhda" data-col="celestial" data-price="4100000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp42.jpg" alt="Vòng tay Celestial Star đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Celestial Star Đính Đá Pha Lê</p>
+                        <div class="product-meta">
+                            <span class="price">4,100,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="bac925" data-col="winter" data-price="2450000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp43.jpg" alt="Vòng tay Winter Frost bạc 925" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Winter Frost Bạc 925</p>
+                        <div class="product-meta">
+                            <span class="price">2,450,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="whitegold" data-col="leafy" data-price="5900000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp44.jpg" alt="Vòng tay Leafy Vine White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Leafy Vine White Gold Độc Quyền</p>
+                        <div class="product-meta">
+                            <span class="price">5,900,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="dinhda" data-col="winter" data-price="3300000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp45.jpg" alt="Vòng tay Winter Crystal đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Winter Crystal Đính Đá Pha Lê</p>
+                        <div class="product-meta">
+                            <span class="price">3,300,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="bac925" data-col="leafy" data-price="1950000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp46.jpg" alt="Vòng tay Leafy Blossom bạc 925" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Leafy Blossom Bạc 925 Thủ Công</p>
+                        <div class="product-meta">
+                            <span class="price">1,950,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="mavang" data-col="celestial" data-price="4400000" data-new="true" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge new">MỚI</span>
+                            <img src="images/sp47.jpg" alt="Vòng tay Moon Phase mạ vàng" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Moon Phase Mạ Vàng Celestial</p>
+                        <div class="product-meta">
+                            <span class="price">4,400,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="dinhda" data-col="golden" data-price="5100000" data-new="false" data-sale="true">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <span class="product-badge sale">SALE</span>
+                            <img src="images/sp48.jpg" alt="Vòng tay Golden Petal đính đá" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Golden Petal Đính Đá Tự Nhiên</p>
+                        <div class="product-meta">
+                            <span class="price">5,100,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" data-cat="vongtay" data-mat="whitegold" data-col="celestial" data-price="6200000" data-new="false" data-sale="false">
+                    <div class="product-item">
+                        <div class="photo-wrap photo-wrap-rel">
+                            <img src="images/sp49.jpg" alt="Vòng tay Celestial White Gold" class="sp-img">
+                        </div>
+                        <p class="name">Vòng Tay Celestial Nova White Gold</p>
+                        <div class="product-meta">
+                            <span class="price">6,200,000 VNĐ</span>
+                            <button class="btn-add-to-cart">MUA NGAY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" id="no-vongtay">Không tìm thấy sản phẩm phù hợp trong danh mục Vòng Tay.</div>
+        </div>
+ 
+    </div>
+</div>
+ 
+
+    <div id="footer">
+        <div class="footer-item">
+            <img src="images/logoTara.png" alt="Logo" style="max-height: 250px; margin: 0px;">
+        </div>
+        <div class="footer-item">
+            <h3>VỀ TARA ATELIER</h3>
+            <ul>
+                <li><a href="#">Câu chuyện thương hiệu</a></li>
+                <li><a href="#">Tuyển dụng nghệ nhân</a></li>
+                <li><a href="#">Hệ thống cửa hàng</a></li>
+                <li><a href="#">Chương trình đặc quyền</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>DỊCH VỤ KHÁCH HÀNG</h3>
+            <ul>
+                <li><a href="#">Chính sách hoàn tiền</a></li>
+                <li><a href="#">Chính sách giao hàng tận nơi</a></li>
+                <li><a href="#">Bảo hành trang sức bạc</a></li>
+                <li><a href="#">Xử lý dữ liệu cá nhân</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
+            <p style="margin-bottom: 15px; font-size: 13px; color: #6E6E73;">Theo dõi các bộ sưu tập mới nhất qua mạng xã hội.</p>
+            <h3 style="margin-top: 25px; margin-bottom: 10px;">PHƯƠNG THỨC THANH TOÁN</h3>
+            <div class="payment-mock">
+                <span class="pay-card">VISA</span>
+                <span class="pay-card">MASTER</span>
+                <span class="pay-card">JCB</span>
+                <span class="pay-card">VNPAY</span>
+            </div>
+        </div>
+        <div class="footer-item" style="display: flex; justify-content: center;">
+            <div>
+                <h3 style="text-transform: uppercase; font-weight: 600;">Thông tin đồ án</h3>
+                <p class="footer-text-small">&copy; 2026 Đồ án Thương hiệu TARA Atelier.</p>
+                <p class="footer-text-small">Thiết kế bởi: <strong>Bùi Thị Thùy Trang</strong></p>
+                <p class="footer-text-small">Mã số sinh viên: 12425083</p>
+                <p class="footer-text-small">Học phần: Thiết kế Web cơ bản</p>
+            </div>
+        </div>
+    </div>
+ 
+<div id="quick-contact" title="Liên hệ ngay">
+    <a href="#"><img src="images/lienHe.png" id="quick-contact-img" alt="Liên hệ"></a>
+</div>
+ 
+<script src="script.js"></script>
+<script>
+(function() {
+ 
+    /* ── DỮ LIỆU (DATA) ── */
+    const SECTIONS = ['nhan', 'daychuyen', 'khuyentai', 'vongtay'];
+    let activePriceMin = null;
+    let activePriceMax = null;
+
+    // Lấy danh sách các thuộc tính của các ô checkbox đang được tích chọn
+    function getChecked(attr) {
+        // Lấy tất cả các thẻ input có thuộc tính được truyền vào và đang được tích chọn
+        let elements = document.querySelectorAll('input[' + attr + ']:checked');
+        let result = [];
+        
+        // Vòng lặp for cơ bản để duyệt qua từng phần tử và lấy giá trị thuộc tính
+        for (let i = 0; i < elements.length; i++) {
+            let el = elements[i];
+            result.push(el.getAttribute(attr));
+        }
+        return result;
+    }
+ 
+    // Định dạng số thành chuỗi tiền tệ VNĐ
+    function formatPrice(n) {
+        return n.toLocaleString('vi-VN') + ' VNĐ';
+    }
+ 
+    /* ── BỘ LỌC CHÍNH (CORE FILTER) ── */
+    function applyFilters() {
+        const cats  = getChecked('data-filter-cat');
+        const mats  = getChecked('data-filter-mat');
+        const cols  = getChecked('data-filter-col');
+        const pMin  = activePriceMin;
+        const pMax  = activePriceMax;
+ 
+        let totalShown = 0;
+ 
+        // Duyệt qua từng danh mục sản phẩm trong mảng SECTIONS
+        for (let i = 0; i < SECTIONS.length; i++) {
+            let sec = SECTIONS[i];
+            const grid = document.getElementById('grid-' + sec);
+            const noResult = document.getElementById('no-' + sec);
+            
+            // Lấy tất cả các thẻ sản phẩm (.col-3) bên trong vùng lưới (grid) này
+            const cards = grid.querySelectorAll('.col-3');
+ 
+            let secVisible = 0;
+ 
+            // Duyệt qua từng thẻ sản phẩm trong danh sách cards
+            for (let j = 0; j < cards.length; j++) {
+                let card = cards[j];
+                const cCat   = card.dataset.cat;
+                const cMat   = card.dataset.mat;
+                const cCol   = card.dataset.col;
+                const cPrice = parseInt(card.dataset.price);
+ 
+                let pass = true;
+ 
+                /* Lọc theo Danh mục (Category) */
+                if (cats.length > 0) {
+                    let hasCat = false;
+                    // Kiểm tra xem danh mục của sản phẩm có nằm trong danh sách được chọn không
+                    for (let k = 0; k < cats.length; k++) {
+                        if (cats[k] === cCat) {
+                            hasCat = true;
+                            break;
+                        }
+                    }
+                    if (hasCat === false) {
+                        pass = false;
+                    }
+                }
+ 
+                /* Lọc theo Chất liệu (Material) */
+                if (pass === true && mats.length > 0) {
+                    let hasMat = false;
+                    for (let k = 0; k < mats.length; k++) {
+                        if (mats[k] === cMat) {
+                            hasMat = true;
+                            break;
+                        }
+                    }
+                    if (hasMat === false) {
+                        pass = false;
+                    }
+                }
+ 
+                /* Lọc theo Bộ sưu tập (Collection) */
+                if (pass === true && cols.length > 0) {
+                    let hasCol = false;
+                    for (let k = 0; k < cols.length; k++) {
+                        if (cols[k] === cCol) {
+                            hasCol = true;
+                            break;
+                        }
+                    }
+                    if (hasCol === false) {
+                        pass = false;
+                    }
+                }
+ 
+                /* Lọc theo Giá tiền (Price) */
+                if (pass === true && pMin !== null && cPrice < pMin) {
+                    pass = false;
+                }
+                if (pass === true && pMax !== null && cPrice > pMax) {
+                    pass = false;
+                }
+ 
+                // Hiển thị hoặc ẩn sản phẩm dựa trên kết quả kiểm tra
+                if (pass === true) {
+                    card.classList.remove('hidden-by-filter');
+                    secVisible++;
+                    totalShown++;
+                } else {
+                    card.classList.add('hidden-by-filter');
+                }
+            }
+ 
+            /* Hiển thị/Ẩn thông báo không có kết quả của từng danh mục */
+            if (secVisible === 0) {
+                noResult.classList.add('visible');
+            } else {
+                noResult.classList.remove('visible');
+            }
+ 
+            /* Cập nhật số lượng sản phẩm hiển thị của từng danh mục */
+            const counter = document.getElementById('count-' + sec);
+            if (counter) {
+                counter.textContent = '(' + secVisible + ' sản phẩm)';
+            }
+        }
+ 
+        /* Cập nhật tổng số lượng hiển thị trên toàn trang */
+        const total = document.querySelectorAll('.col-3').length;
+        document.getElementById('count-shown').textContent = totalShown;
+        document.getElementById('count-total').textContent = total;
+ 
+        /* Vẽ các thẻ (chips) bộ lọc đang hoạt động */
+        renderChips(cats, mats, cols, pMin, pMax);
+ 
+        /* Ẩn/Hiện toàn bộ vùng danh mục nếu bộ lọc danh mục không chọn đến nó */
+        for (let i = 0; i < SECTIONS.length; i++) {
+            let sec = SECTIONS[i];
+            const section = document.getElementById(sec);
+            
+            let isTargeted = false;
+            for (let k = 0; k < cats.length; k++) {
+                if (cats[k] === sec) {
+                    isTargeted = true;
+                    break;
+                }
+            }
+ 
+            if (cats.length > 0 && isTargeted === false) {
+                /* Nếu bộ lọc danh mục đang bật mà danh mục này không được chọn -> Ẩn toàn bộ danh mục */
+                section.style.display = 'none';
+            } else {
+                section.style.display = '';
+            }
+        }
+    }
+ 
+    /* ── CÁC THẺ BỘ LỌC ĐANG CHỌN (CHIPS) ── */
+    const CAT_LABELS  = { nhan:'Nhẫn', daychuyen:'Dây Chuyền', khuyentai:'Khuyên Tai', vongtay:'Vòng Tay' };
+    const MAT_LABELS  = { bac925:'Bạc 925', mavang:'Mạ Vàng 18K', whitegold:'White Gold', dinhda:'Đính Đá Pha Lê' };
+    const COL_LABELS  = { celestial:'Celestial Moon', winter:'Winter Series', golden:'Golden Butterfly', leafy:'Leafy Vine' };
+ 
+    function renderChips(cats, mats, cols, pMin, pMax) {
+        const wrap = document.getElementById('active-filters');
+        wrap.innerHTML = '';
+ 
+        // Tạo chip cho bộ lọc Danh mục
+        for (let i = 0; i < cats.length; i++) {
+            let v = cats[i];
+            let label = CAT_LABELS[v] || v;
+            addChip(wrap, label, function() {
+                document.querySelector('input[data-filter-cat="' + v + '"]').checked = false;
+                applyFilters();
+            });
+        }
+ 
+        // Tạo chip cho bộ lọc Chất liệu
+        for (let i = 0; i < mats.length; i++) {
+            let v = mats[i];
+            let label = MAT_LABELS[v] || v;
+            addChip(wrap, label, function() {
+                document.querySelector('input[data-filter-mat="' + v + '"]').checked = false;
+                applyFilters();
+            });
+        }
+ 
+        // Tạo chip cho bộ lọc Bộ sưu tập
+        for (let i = 0; i < cols.length; i++) {
+            let v = cols[i];
+            let label = COL_LABELS[v] || v;
+            addChip(wrap, label, function() {
+                document.querySelector('input[data-filter-col="' + v + '"]').checked = false;
+                applyFilters();
+            });
+        }
+ 
+        // Tạo chip cho bộ lọc Giá tiền
+        if (pMin !== null || pMax !== null) {
+            let labelMin = '0';
+            if (pMin) {
+                labelMin = formatPrice(pMin);
+            }
+            
+            let labelMax = '∞';
+            if (pMax) {
+                labelMax = formatPrice(pMax);
+            }
+ 
+            const label = labelMin + ' — ' + labelMax;
+            addChip(wrap, '₫ ' + label, function() {
+                activePriceMin = null;
+                activePriceMax = null;
+                document.getElementById('price-min').value = '';
+                document.getElementById('price-max').value = '';
+                applyFilters();
+            });
+        }
+    }
+ 
+    // Hàm thêm một thẻ chip vào vùng hiển thị
+    function addChip(wrap, label, onRemove) {
+        const chip = document.createElement('span');
+        chip.className = 'filter-chip';
+        chip.innerHTML = label + ' <span class="chip-x">✕</span>';
+        chip.addEventListener('click', onRemove);
+        wrap.appendChild(chip);
+    }
+ 
+    /* ── SẮP XẾP (SORT) ── */
+    function applySort(sortVal) {
+        for (let i = 0; i < SECTIONS.length; i++) {
+            let sec = SECTIONS[i];
+            const grid  = document.getElementById('grid-' + sec);
+            
+            // Lấy danh sách sản phẩm và chuyển thành mảng thực tế để sắp xếp
+            let cardElements = grid.querySelectorAll('.col-3');
+            let cards = [];
+            for (let j = 0; j < cardElements.length; j++) {
+                cards.push(cardElements[j]);
+            }
+ 
+            // Thuật toán sắp xếp nổi bọt (Bubble Sort) cơ bản để người mới cũng hiểu được
+            for (let x = 0; x < cards.length - 1; x++) {
+                for (let y = 0; y < cards.length - 1 - x; y++) {
+                    let a = cards[y];
+                    let b = cards[y + 1];
+                    
+                    const pa = parseInt(a.dataset.price);
+                    const pb = parseInt(b.dataset.price);
+                    const na = a.dataset.new === 'true';
+                    const nb = b.dataset.new === 'true';
+                    
+                    let swapRequired = false;
+ 
+                    // Điều kiện hoán đổi vị trí dựa trên loại sắp xếp chọn lựa
+
+if (sortVal === 'price-asc') {
+if (pa > pb) swapRequired = true;
+} else if (sortVal === 'price-desc') {
+if (pb > pa) swapRequired = true;
+} else if (sortVal === 'new') {
+let valueA = 0;
+let valueB = 0;
+if (na) valueA = 1;
+if (nb) valueB = 1;
+if (valueB > valueA) swapRequired = true;
+}
+// Tiến hành đổi chỗ 2 phần tử trong mảng nếu thỏa mãn điều kiện
+if (swapRequired === true) {
+let temp = cards[y];
+cards[y] = cards[y + 1];
+cards[y + 1] = temp;
+}
+}
+}
+// Cập nhật lại thứ tự các thẻ HTML trên giao diện
+for (let j = 0; j < cards.length; j++) {
+grid.appendChild(cards[j]);
+}
+}
+}
+/* ── LÀM MỚI BỘ LỌC (RESET) ── */
+function resetAll() {
+let checkboxes = document.querySelectorAll('.sidebar input[type="checkbox"]');
+for (let i = 0; i < checkboxes.length; i++) {
+checkboxes[i].checked = false;
+}
+activePriceMin = null;
+activePriceMax = null;
+document.getElementById('price-min').value = '';
+document.getElementById('price-max').value = '';
+document.getElementById('sort-select').value = 'default';
+applyFilters();
+applySort('default');
+}
+/* ── CUỘN TRANG TỰ ĐỘNG (ANCHOR SCROLL) ── */
+function scrollToAnchor() {
+const hash = window.location.hash;
+if (!hash) return;
+const target = document.querySelector(hash);
+if (target) {
+setTimeout(function() {
+target.scrollIntoView({ behavior: 'smooth' });
+}, 200);
+}
+}
+/* ── KHỞI TẠO SỰ KIỆN (INIT) ── */
+document.addEventListener('DOMContentLoaded', function() {
+/* Chạy bộ lọc lần đầu khi tải xong trang */
+applyFilters();
+/* Sự kiện khi thay đổi các ô checkbox ở Sidebar */
+let checkboxes = document.querySelectorAll('.sidebar input[type="checkbox"]');
+for (let i = 0; i < checkboxes.length; i++) {
+checkboxes[i].addEventListener('change', applyFilters);
+}
+/* Sự kiện khi nhấn nút Áp dụng giá tiền */
+document.getElementById('btn-apply').addEventListener('click', function() {
+const minVal = parseFloat(document.getElementById('price-min').value);
+const maxVal = parseFloat(document.getElementById('price-max').value);
+activePriceMin = isNaN(minVal) ? null : minVal;
+activePriceMax = isNaN(maxVal) ? null : maxVal;
+applyFilters();
+});
+/* Ô nhập giá tiền: Áp dụng bộ lọc khi nhấn nút Enter */
+let priceInputs = ['price-min', 'price-max'];
+for (let i = 0; i < priceInputs.length; i++) {
+let id = priceInputs[i];
+document.getElementById(id).addEventListener('keydown', function(e) {
+if (e.key === 'Enter') {
+document.getElementById('btn-apply').click();
+}
+});
+}
+/* Sự kiện nút Xóa tất cả bộ lọc */
+document.getElementById('btn-reset').addEventListener('click', resetAll);
+/* Sự kiện thay đổi lựa chọn Sắp xếp sản phẩm */
+document.getElementById('sort-select').addEventListener('change', function() {
+applySort(this.value);
+});
+/* Cuộn trang tự động dựa vào liên kết menu hoặc mã băm URL */
+scrollToAnchor();
+window.addEventListener('hashchange', scrollToAnchor);
+});
+})();
+</script>
+</body>
+</html>
